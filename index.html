@@ -212,7 +212,6 @@
     </div>
     <div class="controls">
       <button id="checkBtn">Check answers</button>
-      <button id="revealBtn" class="secondary">Reveal all</button>
     </div>
   </div>
 
@@ -501,14 +500,6 @@
     });
   });
 
-  // Reveal all
-  document.getElementById("revealBtn").addEventListener("click", () => {
-    cellInputs.forEach(({ input, cellData }) => {
-      input.value = cellData.solution;
-      input.classList.add("correct");
-      input.classList.remove("incorrect");
-    });
-  });
 </script>
 
 </body>
