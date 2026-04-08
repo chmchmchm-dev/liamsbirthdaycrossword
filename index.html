@@ -54,11 +54,17 @@
     }
   }
 
+  #gridArea {
+    display: flex;
+    align-items: flex-start;
+  }
+
   /* Fixed left column */
   #rowLabels {
     width: 32px;      /* same as your label column */
     flex-shrink: 0;
   }
+
 
   /* Scrollable grid area */
   #gridWrapper {
@@ -214,7 +220,7 @@
 
 
   .clue-label {
-    font-weight: 500;
+    font-weight: 600;
   }
 
   .clue-meta {
@@ -228,26 +234,29 @@
 
 
 <div class="layout">
-  <div>
-    <div id="gridArea">
-      <div id="rowLabels"></div>
-      
-      <div id="gridWrapper">
-        <div id="gridContainer">
-      <div id="colLabels"></div>
-      <div id="grid"></div>
+  <div id="gridArea">
+
+    <!-- FIXED left column -->
+    <div id="rowLabels"></div>
+
+    <!-- SCROLLABLE right side -->
+    <div id="gridWrapper">
+      <div id="gridContainer">
+        <div id="colLabels"></div>
+        <div id="grid"></div>
+      </div>
     </div>
-  </div>
-</div>
-    <div class="controls">
-      <button id="checkBtn">Check answers</button>
-    </div>
+
   </div>
 
-  <div class="clues">
-    <h2>Clues</h2>
-    <div id="clueList"></div>
+  <div class="controls">
+    <button id="checkBtn">Check answers</button>
   </div>
+</div>
+
+<div class="clues">
+  <h2>Clues</h2>
+  <div id="clueList"></div>
 </div>
 
 <script>
