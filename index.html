@@ -48,12 +48,24 @@
     }
   }
 
-  /* Wrapper: allow horizontal scroll on small screens, no vertical scrollbar */
-  #gridWrapper {
-  overflow-x: auto;
-  overflow-y: hidden;
-  margin-top: 480px; /* pushes crossword down */
+  @media (max-width: 600px) {
+    body {
+      padding-top: 480px;
+    }
   }
+
+  /* Fixed left column */
+  #rowLabels {
+    width: 32px;      /* same as your label column */
+    flex-shrink: 0;
+  }
+
+  /* Scrollable grid area */
+  #gridWrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
 
   /* FIXED crossword size */
   #gridContainer {
@@ -187,28 +199,28 @@
     padding: 12px 18px;
     border-radius: 8px;
     font-size: 12px;
+    font-color: #133E1D;
     margin-top: 16px; /* padding space between crossword and clues */
   }
 
   .clues h2 {
     margin-top: 0;
-    color: #133E1D;
     font-size: 14px;
   }
 
   .clue-item {
     margin-bottom: 8px;
-    font-style: italic;
   }
 
 
   .clue-label {
-    font-weight: 700;
+    font-weight: 500;
   }
 
   .clue-meta {
     font-size: 11px;
-    color: #133E1D;
+    font-style: italic;
+    font-weight: 200;
   }
 </style>
 </head>
@@ -217,13 +229,16 @@
 
 <div class="layout">
   <div>
-    <div id="gridWrapper">
-      <div id="gridContainer">
-        <div id="colLabels"></div>
-        <div id="rowLabels"></div>
-        <div id="grid"></div>
-      </div>
+    <div id="gridArea">
+      <div id="rowLabels"></div>
+      
+      <div id="gridWrapper">
+        <div id="gridContainer">
+      <div id="colLabels"></div>
+      <div id="grid"></div>
     </div>
+  </div>
+</div>
     <div class="controls">
       <button id="checkBtn">Check answers</button>
     </div>
