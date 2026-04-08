@@ -17,9 +17,11 @@
     color: #133E1D;
     font-size: 12px;
     background-image: url("background_pic.png"); /* or a full URL */
-    background-size: cover;       /* makes it fill the screen */
-    background-position: top;      /* anchors the image to the top */
-    background-repeat: no-repeat; /* prevents tiling */
+    background-size: 100% auto;   /* fit width, keep aspect ratio */
+    background-repeat: repeat-y;  /* repeat vertically only */
+    background-position: top center;
+
+    
   }
 
   h1 {
