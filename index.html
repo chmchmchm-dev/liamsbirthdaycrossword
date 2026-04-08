@@ -70,14 +70,16 @@
 
   /* Scrollable grid area */
   #gridWrapper {
-    overflow-x: auto;
-    overflow-y: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  display: block;
   }
 
-  /* Desktop: hide scrollbar if grid fits */
-  @media (min-width: 900px) {
+  /* Desktop: wrapper grows to fit the grid, so no scroll needed */
+  @media (min-width: 700px) {
     #gridWrapper {
-      overflow-x: visible;
+      overflow-x: hidden;
     }
   }
 
