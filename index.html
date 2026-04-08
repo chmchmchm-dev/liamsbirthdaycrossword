@@ -61,15 +61,24 @@
 
   /* Fixed left column */
   #rowLabels {
-    width: 32px;      /* same as your label column */
-    flex-shrink: 0;
+  width: 32px;
+  flex-shrink: 0;
+  margin-top: 32px; /* aligns row labels with the grid */
   }
+
 
 
   /* Scrollable grid area */
   #gridWrapper {
     overflow-x: auto;
     overflow-y: hidden;
+  }
+
+  /* Desktop: hide scrollbar if grid fits */
+  @media (min-width: 900px) {
+    #gridWrapper {
+      overflow-x: visible;
+    }
   }
 
 
@@ -176,7 +185,7 @@
 
   /* Buttons */
   .controls {
-    margin-top: 24px;
+    margin-top: 16px;
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
@@ -207,6 +216,7 @@
     font-size: 12px;
     font-color: #133E1D;
     margin-top: 16px; /* padding space between crossword and clues */
+    margin-bottom: 32px;
   }
 
   .clues h2 {
@@ -232,8 +242,8 @@
 </head>
 <body>
 
+ <div class="layout">
 
-<div class="layout">
   <div id="gridArea">
 
     <!-- FIXED left column -->
@@ -249,9 +259,10 @@
 
   </div>
 
-  <div class="controls">
-    <button id="checkBtn">Check answers</button>
-  </div>
+</div>
+
+<div class="controls">
+  <button id="checkBtn">Check answers</button>
 </div>
 
 <div class="clues">
