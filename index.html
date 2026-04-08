@@ -14,10 +14,7 @@
     font-family: "Geist", sans-serif;
     line-height: 1.3;
     padding: 16px;
-    background-image: url("background_pic.png"); /* or a full URL */
-    background-size: cover;       /* makes it fill the screen */
-    background-position: center;  /* keeps it nicely aligned */
-    background-repeat: no-repeat; /* prevents tiling */
+    color: #ffffff;
     font-size: 12px;
   }
 
@@ -49,8 +46,9 @@
 
   /* Wrapper: allow horizontal scroll on small screens, no vertical scrollbar */
   #gridWrapper {
-    overflow-x: auto;
-    overflow-y: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-top: 480px; /* pushes crossword down */
   }
 
   /* FIXED crossword size */
@@ -76,6 +74,7 @@
     font-weight: bold;
     align-items: center;
     justify-items: center;
+    color: #ffffff;
   }
 
   /* Row labels 1–16 */
@@ -92,6 +91,7 @@
     font-weight: bold;
     align-items: center;
     justify-items: center;
+    color: #ffffff;
   }
 
   /* Crossword grid */
@@ -168,7 +168,7 @@
     border-radius: 8px;
     border: none;
     font-weight: 600;
-    color: white;
+    color: #133E1D;
     background: #FED766;
   }
 
@@ -187,6 +187,7 @@
 
   .clues h2 {
     margin-top: 0;
+    color: #133E1D;
     font-size: 14px;
   }
 
