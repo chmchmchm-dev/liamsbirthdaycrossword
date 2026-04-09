@@ -667,10 +667,15 @@
       );
 
       if (cell) {
+        // remove green/red classes
+        cell.input.classList.remove("correct", "incorrect");
+
+        // highlight the cell background
         cell.input.parentElement.style.backgroundColor = "#FED766";
       }
     });
   }
+
 
 
 </script>
