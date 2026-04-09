@@ -100,8 +100,8 @@
     grid-column: 2;
     grid-row: 1;
     display: grid;
-    grid-template-columns: repeat(14, 32px);
-    width: calc(32px * 14);
+    grid-template-columns: repeat(13, 32px);
+    width: calc(32px * 13);
     height: 32px;
     text-align: center;
     font-size: 12px;
@@ -134,9 +134,9 @@
     grid-column: 2;
     grid-row: 2;
     display: grid;
-    grid-template-columns: repeat(14, 32px);
+    grid-template-columns: repeat(13, 32px);
     grid-template-rows: repeat(16, 32px);
-    width: calc(32px * 14);
+    width: calc(32px * 13);
     height: calc(32px * 16);
     gap: 0;
   }
@@ -582,6 +582,13 @@
         break;
       }
     }
+
+    // FINAL CHECK — all words correct?
+    if (areAllWordsCorrect()) {
+      highlightFinalClueCells();
+      alert("Congrats! You've cracked the crossword. Now you get your final clue. Solve the anagram.");
+    }
+
   });
 
 
@@ -615,6 +622,53 @@
       }
 
       return true;
+    });
+  }
+
+
+  function areAllWordsCorrect() {
+    return words.every(w => {
+      const cleanAnswer = w.answer.replace(/\s+/g, "").toUpperCase();
+      const start = parseCoord(w.start);
+      const end = parseCoord(w.end);
+      const dr = Math.sign(end.row - start.row);
+      const dc = Math.sign(end.col - start.col);
+
+      let r = start.row;
+      let c = start.col;
+
+      for (let i = 0; i < cleanAnswer.length; i++) {
+        const expected = cleanAnswer[i];
+        const input = cellInputs.find(ci =>
+          parseInt(ci.input.dataset.row, 10) === r &&
+          parseInt(ci.input.dataset.col, 10) === c
+        );
+
+        if (!input || input.input.value.toUpperCase() !== expected) {
+          return false;
+        }
+
+        r += dr;
+        c += dc;
+      }
+
+      return true;
+    });
+  }
+
+  function highlightFinalClueCells() {
+    const coords = ["E1", "F1", "I3", "E4", "F6", "C10", "G10", "E11", "B13", "J13"];
+
+    coords.forEach(coord => {
+      const { row, col } = parseCoord(coord);
+      const cell = cellInputs.find(ci =>
+        parseInt(ci.input.dataset.row, 10) === row &&
+        parseInt(ci.input.dataset.col, 10) === col
+      );
+
+      if (cell) {
+        cell.input.parentElement.style.backgroundColor = "#FED766";
+      }
     });
   }
 
