@@ -91,11 +91,11 @@
     display: grid;
     grid-template-columns: 32px auto;
     grid-template-rows: 32px auto;
-    width: calc(32px * 14 + 32px);   /* 14 columns + label column */
+    width: calc(32px * 13);   /* 13 columns */
     height: calc(32px * 16 + 32px);  /* 16 rows + label row */
   }
 
-  /* Column labels A–N */
+  /* Column labels A–M */
   #colLabels {
     grid-column: 2;
     grid-row: 1;
@@ -275,9 +275,9 @@
 </div>
 
 <script>
-  // Rows = 1–16, Columns = A–N
+  // Rows = 1–16, Columns = A–M
   const ROWS = Array.from({ length: 16 }, (_, i) => i + 1); // [1..16]
-  const COLS = "ABCDEFGHIJKLMN".split("");                  // A–N
+  const COLS = "ABCDEFGHIJKLM".split("");                  // A–M
 
   const words = [
     {
@@ -366,9 +366,17 @@
     }
   ];
 
+  const clueGroups = [
+    [1, 2, 3, 4],      // Group 1
+    [5, 6],            // Group 2
+    [7, 8, 9, 10],     // Group 3
+    [11, 12]           // Group 4
+  ];
+
+  
   // Parse coordinates like "C1" => { rowIndex, colIndex }
   function parseCoord(coord) {
-    const colLetter = coord[0];                 // A–N
+    const colLetter = coord[0];                 // A–M
     const rowNumber = parseInt(coord.slice(1), 10); // 1–16
     const rowIndex = ROWS.indexOf(rowNumber);
     const colIndex = COLS.indexOf(colLetter);
@@ -509,28 +517,44 @@
 
   // Render clues (no answers shown)
   const clueListEl = document.getElementById("clueList");
-  words.forEach((w) => {
-    const item = document.createElement("div");
-    item.className = "clue-item";
 
-    const s = parseCoord(w.start);
-    const e = parseCoord(w.end);
-    let dirText;
-    if (s.row === e.row) {
-      dirText = (e.col > s.col) ? "Across" : "Across (backwards)";
-    } else {
-      dirText = (e.row > s.row) ? "Down" : "Down (backwards)";
+  clueGroups.forEach((group, groupIndex) => {
+    const groupDiv = document.createElement("div");
+    groupDiv.className = "clue-group";
+    groupDiv.dataset.group = groupIndex;
+
+    if (groupIndex > 0) {
+      groupDiv.style.display = "none"; // hide all except group 0
     }
 
-    item.innerHTML = `
-      <div><span class="clue-label">${w.number}.</span> ${w.clue}</div>
-      <div class="clue-meta">${dirText}, from ${w.start} to ${w.end}</div>
-    `;
-    clueListEl.appendChild(item);
+    group.forEach(num => {
+      const w = words.find(w => w.number === num);
+      const item = document.createElement("div");
+      item.className = "clue-item";
+
+      const s = parseCoord(w.start);
+      const e = parseCoord(w.end);
+      let dirText;
+      if (s.row === e.row) {
+        dirText = (e.col > s.col) ? "Across" : "Across (backwards)";
+      } else {
+        dirText = (e.row > s.row) ? "Down" : "Down (backwards)";
+      }
+
+      item.innerHTML = `
+        <div><span class="clue-label">${w.number}.</span> ${w.clue}</div>
+        <div class="clue-meta">${dirText}, from ${w.start} to ${w.end}</div>
+      `;
+
+      groupDiv.appendChild(item);
+    });
+
+    clueListEl.appendChild(groupDiv);
   });
 
   // Check answers
-  document.getElementById("checkBtn").addEventListener("click", () => {
+    document.getElementById("checkBtn").addEventListener("click", () => {
+    // existing correctness coloring
     cellInputs.forEach(({ input, cellData }) => {
       const val = (input.value || "").toUpperCase();
       if (!val) {
@@ -545,7 +569,55 @@
         input.classList.remove("correct");
       }
     });
+
+    // reveal next clue group
+    for (let i = 0; i < clueGroups.length - 1; i++) {
+      const groupDiv = document.querySelector(`.clue-group[data-group="${i}"]`);
+      const nextGroupDiv = document.querySelector(`.clue-group[data-group="${i+1}"]`);
+
+      if (groupDiv && nextGroupDiv && nextGroupDiv.style.display === "none") {
+        if (isGroupCorrect(clueGroups[i])) {
+          nextGroupDiv.style.display = "block";
+        }
+        break;
+      }
+    }
   });
+
+
+  // Check if a group is fully correct
+    function isGroupCorrect(group) {
+    return group.every(num => {
+      const w = words.find(w => w.number === num);
+      const cleanAnswer = w.answer.replace(/\s+/g, "").toUpperCase();
+
+      const start = parseCoord(w.start);
+      const end = parseCoord(w.end);
+      const dr = Math.sign(end.row - start.row);
+      const dc = Math.sign(end.col - start.col);
+
+      let r = start.row;
+      let c = start.col;
+
+      for (let i = 0; i < cleanAnswer.length; i++) {
+        const expected = cleanAnswer[i];
+        const input = cellInputs.find(ci =>
+          parseInt(ci.input.dataset.row, 10) === r &&
+          parseInt(ci.input.dataset.col, 10) === c
+        );
+
+        if (!input || input.input.value.toUpperCase() !== expected) {
+          return false;
+        }
+
+        r += dr;
+        c += dc;
+      }
+
+      return true;
+    });
+  }
+
 
 </script>
 
