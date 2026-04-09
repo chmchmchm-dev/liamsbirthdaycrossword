@@ -187,6 +187,11 @@
     border-color: #e53935;
   }
 
+  .cell input.anagram {
+    background: #FED766;
+    border-color: #FED766;
+  }
+
   /* Buttons */
   .controls {
     margin-top: 16px;
@@ -667,14 +672,15 @@
       );
 
       if (cell) {
-        // remove green/red classes
+        // Remove green/red classes so they don't override the highlight
         cell.input.classList.remove("correct", "incorrect");
 
-        // highlight the cell background
-        cell.input.parentElement.style.backgroundColor = "#FED766";
+        // Add your highlight class
+        cell.input.classList.add("anagram");
       }
     });
   }
+
 
 
 
