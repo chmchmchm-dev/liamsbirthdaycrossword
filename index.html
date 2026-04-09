@@ -283,86 +283,86 @@
     {
       number: 1,
       answer: "BIRTHDAY",
-      clue: "Today is your ___?",
-      start: "C1",
-      end: "J1"
+      clue: "Today is your ________?",
+      start: "B1",
+      end: "I1"
     },
     {
       number: 2,
       answer: "LIAM",
       clue: "Your first name",
-      start: "F13",
-      end: "F16"
+      start: "E13",
+      end: "E16"
     },
     {
       number: 3,
       answer: "WILD",
-      clue: "We enjoyed our Ceilidh dancing at Bonnie & __.",
-      start: "H8",
-      end: "K8"
+      clue: "We enjoyed our Ceilidh dancing at Bonnie & ____.",
+      start: "G8",
+      end: "J8"
     },
     {
       number: 4,
       answer: "NATIONAL GALLERY",
       clue: "It's home to world-class international and Scottish art from 1300 to 1945. We are going to have brunch at their cafe.",
-      start: "J15",
-      end: "J1"
+      start: "I15",
+      end: "I1"
     },
     {
       number: 5,
       answer: "JD",
       clue: "Head to this sports shop on Hanover Street to get your birthday present",
-      start: "E5",
-      end: "F5"
+      start: "D5",
+      end: "E5"
     },
     {
       number: 6,
       answer: "SCOTLAND TOP",
       clue: "What did you get for birthday present?",
-      start: "B13",
-      end: "L13"
+      start: "A13",
+      end: "K13"
     },
     {
       number: 7,
       answer: "WATERSTONES",
       clue: "Bookshop on Princes Street",
-      start: "B10",
-      end: "L10"
+      start: "A10",
+      end: "K10"
     },
     {
       number: 8,
       answer: "SLATEFORD",
       clue: "Train station closest to your flat",
-      start: "D7",
-      end: "D15"
+      start: "C7",
+      end: "C15"
     },
     {
       number: 9,
       answer: "WATSON",
       clue: "Your last name",
-      start: "H8",
-      end: "H13"
+      start: "G8",
+      end: "G13"
     },
     {
       number: 10,
       answer: "IAN RANKIN",
       clue: "Author of Fleshmarket Close",
-      start: "F6",
-      end: "N6"
+      start: "E6",
+      end: "M6"
     },
     {
       number: 11,
-      answer: "EDINBURGH",
+      answer: "EDINBURG",
       clue: "The enchanting historic city we met, fell in love and live in",
-      start: "F4",
-      end: "F11"
+      start: "E4",
+      end: "E11"
     },
     {
       number: 12,
       answer: "LATTE",
       clue: "What coffee did you have for drink this morning?",
-      start: "J4",
-      end: "F4"
+      start: "I4",
+      end: "E4"
     }
   ];
 
@@ -413,12 +413,6 @@
     }
   });
 
-  // Force F12 to be black (should be empty)
-  const fCol = COLS.indexOf("F");
-  const row12 = ROWS.indexOf(12);
-  if (grid[row12][fCol]) {
-    grid[row12][fCol] = null;
-  }
 
   // Render column labels
   const colLabels = document.getElementById("colLabels");
